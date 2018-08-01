@@ -38,9 +38,6 @@ While access is being granted, you can temporarily unblock your development pipe
 
 **Please note that the packages in the Sharepoint folder are NOT maintained!** Do follow up on your access request ASAP to enjoy the latest NuGet packages.
 
-### ClientGenerator
-Please be aware that the code in the CPMClientGenerator retrieves the AAD token only once. If the token expires, this class does not retrieve a new token, and the call will simply fail with "unauthorized".
-
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
