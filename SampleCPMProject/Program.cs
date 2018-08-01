@@ -3,6 +3,7 @@
     using Microsoft.CustomerPreferences.Api.Contracts;
     using Newtonsoft.Json;
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
 
     public class Program
@@ -23,7 +24,7 @@
                 //GetEmailContactabilities();
                 //PatchEmailContactPoint();
 
-                GetPhoneContactPoint();
+                //GetPhoneContactPoint();
                 //GetPhoneContactabilities();
                 //PatchPhoneContactPoint();
             }
@@ -44,10 +45,16 @@
         private static void GetEmailContactabilities()
         {
             var emails = new string[] { "test@microsoft.com", "test@pct.com", "abc@test.com" };
+            
             EmailContactabilitiesRequest request = new EmailContactabilitiesRequest()
             {
                 TargetedTopicId = testTopicId,                                 //Topic Id for which you want to contact customers
-                UnsubscribeUrlRequired = true                                  //If this is set to true CPM will return a URL (only for customers for whom canContact = true) that customers can use to unsubscribe from this communication.
+
+                /*If the UnsubscribeUrlRequired field is set to true CPM will return a URL that customers can use to unsubscribe from this communication.
+                 * This URL will only be returned for customers for whom canContact = true.
+                 * This URL is meant to be included in the email communication that is sent to the customer
+                 */
+                UnsubscribeUrlRequired = true                                  
             };
 
             foreach (string emailAddress in emails)
@@ -130,17 +137,18 @@
         {
             ContactName name = new ContactName()
             {
-                FirstName = "John",
-                LastName = "Doe"
+                FirstName = "testfnone",
+                MiddleName = "second",
+                LastName = "testlnone"
             };
 
             PhoneContactIdentity identity = new PhoneContactIdentity()
             {
-                PhoneNumber = "+14256668888",                                   //The phone number should follow the E.164 standard
+                PhoneNumber = "+1234567890",                                   //The phone number should follow the E.164 standard
                 Name = name
             };
 
-            PhoneContactPoint result = cpmClient.GetPhoneContactPoint(identity, useFuzzyMatch: false).Result;
+            IEnumerable<PhoneContactPoint> result = cpmClient.GetPhoneContactPoint(identity, useFuzzyMatch: false).Result;
             Console.WriteLine(JsonConvert.SerializeObject(result));
         }
 
@@ -176,8 +184,8 @@
                 State = ContactPointTopicSettingState.OptInExplicit             //The permission
             });
 
-            PhoneContactPoint updatedContactPoint = cpmClient.PatchPhoneContactPoint(phoneContactPoint).Result;
-            Console.WriteLine(JsonConvert.SerializeObject(updatedContactPoint));
+            cpmClient.PatchPhoneContactPoint(phoneContactPoint).Wait();
+            Console.WriteLine("Phone contact patch successfull");
         }
     }
 }
