@@ -17,13 +17,20 @@
 
             //Uncomment the method you want to run below.
 
-            //GetEmailContactPoint();
-            //GetEmailContactabilities();
-            //PatchEmailContactPoint();
+            try
+            {
+                //GetEmailContactPoint();
+                //GetEmailContactabilities();
+                //PatchEmailContactPoint();
 
-            //GetPhoneContactPoint();
-            //GetPhoneContactabilities();
-            //PatchPhoneContactPoint();
+                GetPhoneContactPoint();
+                //GetPhoneContactabilities();
+                //PatchPhoneContactPoint();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.Message);
+            }
 
             Console.Read();
         }
@@ -39,7 +46,8 @@
             var emails = new string[] { "test@microsoft.com", "test@pct.com", "abc@test.com" };
             EmailContactabilitiesRequest request = new EmailContactabilitiesRequest()
             {
-                TargetedTopicId = testTopicId
+                TargetedTopicId = testTopicId,                                 //Topic Id for which you want to contact customers
+                UnsubscribeUrlRequired = true                                  //If this is set to true CPM will return a URL (only for customers for whom canContact = true) that customers can use to unsubscribe from this communication.
             };
 
             foreach (string emailAddress in emails)
