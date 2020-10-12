@@ -21,9 +21,11 @@ Install the latest version available.
 ### NuGet command line instructions
 If you prefer to install the packages manually, use the following command:
 ```
-Install-Package Microsoft.Cpm.Api.Contracts -Source "https://microsoft.pkgs.visualstudio.com/_packaging/MCKP.CPM/nuget/v3/index.json" -Version 3.0.1
+Install-Package Microsoft.Cpm.Api.Contracts -Source "https://microsoft.pkgs.visualstudio.com/_packaging/MCKP.CPM/nuget/v3/index.json" -Version 3.0.19
 ```
 Please note that you will have to locate what the latest version is.
+
+https://microsoft.visualstudio.com/Universal%20Store/_packaging?_a=package&feed=MCKP.CPM&package=Microsoft.Cpm.Api.Contracts&version=3.0.19&protocolType=NuGet
 
 ### Getting access
 If you keep getting a login screen when trying to add our NuGet feed to Visual Studio, it is most likely because your team does not have access to our internal NuGet feed. Please submit an access request through [https://aka.ms/wdgaccess](https://aka.ms/wdgaccess).
